@@ -3,11 +3,11 @@ import { ArrowLeft, Sparkles, Trash2, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils'; // Assuming utils is at root or properly aliased
 import { motion } from 'framer-motion';
-import ChatMessage from '@/Components/chat/ChatMessage';
-import ChatInput from '@/Components/chat/ChatInput';
+import ChatMessage from '@/Components/chat/ChatMessage.jsx';
+import ChatInput from '@/Components/chat/ChatInput.jsx';
 import { base44 } from '@/api/base44Client';
-import { chatWithNebius, analyzeImageWithNebius, searchKnowledge, buildRAGContext, analyzeImageWithMock } from '@/Components/chat/NebiusAI';
-import { getChatMemory } from '@/Components/chat/ChatMemory';
+import { chatWithNebius, analyzeImageWithNebius, searchKnowledge, buildRAGContext, analyzeImageWithMock } from '@/Components/chat/NebiusAI.js';
+import { getChatMemory } from '@/Components/chat/ChatMemory.js';
 
 export default function Chatbot() {
   const chatMemory = useRef(getChatMemory());
@@ -283,138 +283,138 @@ export default function Chatbot() {
   };
 
   return (
-    <div className= "min-h-screen bg-gray-50 flex flex-col" >
-    {/* Header */ }
-    < header className = "bg-gradient-to-r from-[#0F2B46] to-[#1A3A5C] text-white px-4 pt-12 pb-4 safe-area-top" >
-      <div className="max-w-4xl mx-auto flex items-center justify-between" >
-        <Link to="/" className = "p-2 hover:bg-white/10 rounded-full transition-colors text-white" >
-          <ArrowLeft className="w-6 h-6" />
-            </Link>
+    <div className="min-h-screen bg-gray-50 flex flex-col" >
+      {/* Header */}
+      < header className="bg-gradient-to-r from-[#0F2B46] to-[#1A3A5C] text-white px-4 pt-12 pb-4 safe-area-top" >
+        <div className="max-w-4xl mx-auto flex items-center justify-between" >
+          <Link to="/" className="p-2 hover:bg-white/10 rounded-full transition-colors text-white" >
+            <ArrowLeft className="w-6 h-6" />
+          </Link>
 
-  {/* Logo Branding */ }
-  <div className="flex flex-col items-center" >
-    <img src="/logo.png" alt = "PLN Icon Plus" className = "h-12 object-contain" />
-      <span className="text-xs text-cyan-200 mt-1 font-medium tracking-wider" > P2TL INTELLIGENT ASSISTANT </span>
+          {/* Logo Branding */}
+          <div className="flex flex-col items-center" >
+            <img src="/logo.png" alt="PLN Icon Plus" className="h-12 object-contain" />
+            <span className="text-xs text-cyan-200 mt-1 font-medium tracking-wider" > P2TL INTELLIGENT ASSISTANT </span>
+          </div>
+
+          < div className="flex items-center gap-2" >
+            <button
+              onClick={clearMemory}
+              className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20 transition-colors"
+              title="Hapus riwayat"
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
+            < div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-xl flex items-center justify-center" >
+              <Sparkles className="w-5 h-5" />
+            </div>
+          </div>
         </div>
 
-        < div className = "flex items-center gap-2" >
-          <button
-              onClick={ clearMemory }
-  className = "w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20 transition-colors"
-  title = "Hapus riwayat"
-    >
-    <Trash2 className="w-5 h-5" />
-      </button>
-      < div className = "w-10 h-10 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-xl flex items-center justify-center" >
-        <Sparkles className="w-5 h-5" />
-          </div>
-          </div>
-          </div>
-
-  {/* Memory indicator */ }
-  {
-    chatMemory.current.getLength() > 1 && (
-      <div className="mt-2 flex items-center gap-2 text-xs text-gray-300" >
-        <Database className="w-3 h-3" />
-          <span>{ chatMemory.current.getLength() } pesan dalam memori </span>
-            </div>
-        )
-  }
-  </header>
-
-  {/* Chat Messages */ }
-  <div className="flex-1 overflow-y-auto px-4 py-4" >
-    <div className="max-w-lg mx-auto space-y-4" >
-    {
-      messages.map((msg) => (
-        <ChatMessage
-              key= { msg.id }
-              message = { msg.message }
-              isBot = { msg.isBot }
-              sources = { msg.sources }
-              responseTime = { msg.responseTime }
-              isTyping = { msg.isTyping }
-        />
-          ))
-    }
-      < div ref = { messagesEndRef } />
-
-        {/* Advanced Thinking Process Indicator */ }
-  {
-    processingStep && (
-      <motion.div 
-          initial={ { opacity: 0, y: 10 } }
-    animate = {{ opacity: 1, y: 0 }
-  }
-  exit = {{ opacity: 0, y: 10 }
-}
-className = "flex items-start gap-3 mt-4"
-  >
-  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0F2B46] to-[#1A3A5C] flex items-center justify-center shadow-md" >
-    <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
-      </div>
-      < div className = "bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm border border-gray-100 relative overflow-hidden" >
-        {/* Animated Gradient Border Effect */ }
-        < div className = "absolute inset-0 bg-gradient-to-r from-transparent via-cyan-50/50 to-transparent animate-shimmer" style = {{ backgroundSize: '200% 100%' }} />
-
-          < div className = "relative flex items-center gap-3" >
-            {/* Animated Icon based on step */ }
-            < div className = "relative w-4 h-4" >
-              { processingStep === 'searching' && <div className="absolute inset-0 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />}
-{ processingStep === 'analyzing' && <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75" />}
-{ processingStep === 'generating' && <div className="absolute inset-0 bg-cyan-500 rounded-sm animate-pulse" />}
-</div>
-
-  < div className = "flex flex-col" >
-    <span className="text-sm font-medium text-gray-800" >
-      { processingStep === 'searching' && 'Mencari di Knowledge Base...'}
-{ processingStep === 'analyzing' && 'Menganalisis Konteks & Regulasi...' }
-{ processingStep === 'generating' && 'Menyusun Jawaban Komprehensif...' }
-</span>
-  < span className = "text-xs text-xs text-gray-400" >
-    { processingStep === 'searching' && 'Scanning 1500+ documents'}
-{ processingStep === 'analyzing' && 'Verifying compliance with UU 30/2009' }
-{ processingStep === 'generating' && 'Finalizing response' }
-</span>
-  </div>
-  </div>
-  </div>
-  </motion.div>
-      )}
-</div>
-  </div>
-
-{/* Quick Suggestions */ }
-{
-  messages.length === 1 && (
-    <div className="px-4 pb-3" >
-      <div className="max-w-lg mx-auto" >
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" >
+        {/* Memory indicator */}
         {
-          ['Kode error E01?', 'Prosedur P2TL', 'Tips keselamatan'].map((suggestion) => (
-            <button
-                  key= { suggestion }
-                  onClick = {() => handleSend(suggestion)}
-  className = "flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm text-gray-700 border border-gray-200 hover:border-cyan-500 hover:text-cyan-600 transition-colors"
-    >
-    { suggestion }
-    </button>
-              ))
-}
-</div>
-  </div>
-  </div>
-      )
-}
+          chatMemory.current.getLength() > 1 && (
+            <div className="mt-2 flex items-center gap-2 text-xs text-gray-300" >
+              <Database className="w-3 h-3" />
+              <span>{chatMemory.current.getLength()} pesan dalam memori </span>
+            </div>
+          )
+        }
+      </header>
 
-{/* Chat Input */ }
-<ChatInput
-        onSend={ handleSend }
-onCamera = { handleCamera }
-isLoading = { isLoading }
-imagePreview = { imagePreview }
-onClearImage = {() => setImagePreview(null)}
+      {/* Chat Messages */}
+      <div className="flex-1 overflow-y-auto px-4 py-4" >
+        <div className="max-w-lg mx-auto space-y-4" >
+          {
+            messages.map((msg) => (
+              <ChatMessage
+                key={msg.id}
+                message={msg.message}
+                isBot={msg.isBot}
+                sources={msg.sources}
+                responseTime={msg.responseTime}
+                isTyping={msg.isTyping}
+              />
+            ))
+          }
+          < div ref={messagesEndRef} />
+
+          {/* Advanced Thinking Process Indicator */}
+          {
+            processingStep && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }
+                }
+                exit={{ opacity: 0, y: 10 }
+                }
+                className="flex items-start gap-3 mt-4"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0F2B46] to-[#1A3A5C] flex items-center justify-center shadow-md" >
+                  <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+                </div>
+                < div className="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm border border-gray-100 relative overflow-hidden" >
+                  {/* Animated Gradient Border Effect */}
+                  < div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-50/50 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+
+                  < div className="relative flex items-center gap-3" >
+                    {/* Animated Icon based on step */}
+                    < div className="relative w-4 h-4" >
+                      {processingStep === 'searching' && <div className="absolute inset-0 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />}
+                      {processingStep === 'analyzing' && <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75" />}
+                      {processingStep === 'generating' && <div className="absolute inset-0 bg-cyan-500 rounded-sm animate-pulse" />}
+                    </div>
+
+                    < div className="flex flex-col" >
+                      <span className="text-sm font-medium text-gray-800" >
+                        {processingStep === 'searching' && 'Mencari di Knowledge Base...'}
+                        {processingStep === 'analyzing' && 'Menganalisis Konteks & Regulasi...'}
+                        {processingStep === 'generating' && 'Menyusun Jawaban Komprehensif...'}
+                      </span>
+                      < span className="text-xs text-xs text-gray-400" >
+                        {processingStep === 'searching' && 'Scanning 1500+ documents'}
+                        {processingStep === 'analyzing' && 'Verifying compliance with UU 30/2009'}
+                        {processingStep === 'generating' && 'Finalizing response'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+        </div>
+      </div>
+
+      {/* Quick Suggestions */}
+      {
+        messages.length === 1 && (
+          <div className="px-4 pb-3" >
+            <div className="max-w-lg mx-auto" >
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" >
+                {
+                  ['Kode error E01?', 'Prosedur P2TL', 'Tips keselamatan'].map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      onClick={() => handleSend(suggestion)}
+                      className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm text-gray-700 border border-gray-200 hover:border-cyan-500 hover:text-cyan-600 transition-colors"
+                    >
+                      {suggestion}
+                    </button>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {/* Chat Input */}
+      <ChatInput
+        onSend={handleSend}
+        onCamera={handleCamera}
+        isLoading={isLoading}
+        imagePreview={imagePreview}
+        onClearImage={() => setImagePreview(null)}
       />
-  </div>
+    </div>
   );
 }

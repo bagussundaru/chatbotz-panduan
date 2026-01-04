@@ -1,5 +1,5 @@
 import React from 'react';
-import BottomNav from '@/components/ui/BottomNav';
+import BottomNav from '@/Components/ui/BottomNav.jsx';
 
 export default function Layout({ children, currentPageName }) {
   const hideNavPages = ['Scanner'];

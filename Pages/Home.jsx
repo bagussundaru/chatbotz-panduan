@@ -1,7 +1,7 @@
 import React from 'react';
-import AppHeader from '@/components/ui/AppHeader';
-import StatsCard from '@/components/home/StatsCard';
-import QuickAction from '@/components/home/QuickAction';
+import AppHeader from '@/Components/ui/AppHeader.jsx';
+import StatsCard from '@/Components/home/StatsCard.jsx';
+import QuickAction from '@/Components/home/QuickAction.jsx';
 import { MessageSquare, Camera, FileText, BookOpen, Zap, Clock, CheckCircle, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -22,8 +22,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <AppHeader 
-        title="Selamat Datang" 
+      <AppHeader
+        title="Selamat Datang"
         subtitle="Asisten Digital P2TL siap membantu Anda"
       />
 
