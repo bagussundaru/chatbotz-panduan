@@ -1,6 +1,7 @@
 # Panduan Deployment Chatbot AP2T
 
 Aplikasi ini menggunakan **Vite + React** dan siap dideploy ke **Vercel**.
+*(Updated: Fix JSX extensions for Vercel Build)*
 
 ## 1. Persiapan Repository
 Pastikan kode sudah dipush ke GitHub.

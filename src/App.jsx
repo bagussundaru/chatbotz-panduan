@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from '@/Layout';
-import Home from '@/Pages/Home';
-import Chatbot from '@/Pages/Chatbot';
-import Scanner from '@/Pages/Scanner';
-import Reports from '@/Pages/Reports';
-import Documents from '@/Pages/Documents';
-import CreateReport from '@/Pages/CreateReport';
+import Layout from '@/Layout.jsx';
+import Home from '@/Pages/Home.jsx';
+import Chatbot from '@/Pages/Chatbot.jsx';
+import Scanner from '@/Pages/Scanner.jsx';
+import Reports from '@/Pages/Reports.jsx';
+import Documents from '@/Pages/Documents.jsx';
+import CreateReport from '@/Pages/CreateReport.jsx';
 
 // Assume Layout wraps the children or we wrap it here.
 // Layout.js viewed earlier:
