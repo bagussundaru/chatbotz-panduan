@@ -4,31 +4,34 @@ import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
-export default function QuickAction({ icon: Icon, label, description, page, color, delay = 0 }) {
+export default function StatsCard({ icon: Icon, label, value, trend, color }) {
   const colorClasses = {
-    cyan: 'bg-gradient-to-br from-cyan-500 to-cyan-600',
-    violet: 'bg-gradient-to-br from-violet-500 to-violet-600',
-    amber: 'bg-gradient-to-br from-amber-500 to-amber-600',
-    emerald: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
+    cyan: 'bg-cyan-500/20 text-cyan-200',
+    green: 'bg-green-500/20 text-green-200',
+    amber: 'bg-amber-500/20 text-amber-200',
+    violet: 'bg-violet-500/20 text-violet-200',
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10 hover:bg-white/15 transition-all duration-300"
     >
-      <Link
-        to={createPageUrl(page)}
-        className="flex items-center gap-3 sm:gap-4 bg-white rounded-2xl p-3 sm:p-4 shadow-sm border border-gray-100 hover:shadow-lg hover:border-cyan-200 transition-all duration-300 group"
-      >
-        <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${colorClasses[color]} flex items-center justify-center flex-shrink-0`}>
-          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+      <div className="flex items-start justify-between mb-2">
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${colorClasses[color] || 'bg-white/10'}`}>
+          <Icon className="w-5 h-5 text-current" />
         </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{label}</h3>
-          <p className="text-xs sm:text-sm text-gray-500 line-clamp-1">{description}</p>
-        </div>
-        <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all" />
-      </Link>
- 
+        {trend && (
+          <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${trend > 0 ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
+            {trend > 0 ? '+' : ''}{trend}%
+          </span>
+        )}
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-white mb-0.5">{value}</h3>
+        <p className="text-xs text-gray-400 font-medium">{label}</p>
+      </div>
+    </motion.div>
+  );
+}
