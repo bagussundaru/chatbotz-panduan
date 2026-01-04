@@ -1,0 +1,30 @@
+{
+  "name": "Report",
+  "type": "object",
+  "properties": {
+    "report_number": {
+      "type": "string",
+      "description": "Nomor Berita Acara"
+    },
+    "location": {
+      "type": "string",
+      "description": "Lokasi gangguan"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "ID Pelanggan"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Nama Pelanggan"
+    },
+    "violation_type": {
+      "type": "string",
+      "enum": [
+        "pencurian_listrik",
+        "pelanggaran_kontrak",
+        "meter_rusak",
+        "koneksi_ilegal",
+        "lainnya"
+      ],
+ 

@@ -1,0 +1,30 @@
+{
+  "name": "Consultation",
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string",
+      "description": "Pertanyaan dari petugas"
+    },
+    "answer": {
+      "type": "string",
+      "description": "Jawaban dari chatbot RAG"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "troubleshooting",
+        "regulasi",
+        "prosedur",
+        "keselamatan",
+        "peralatan"
+      ],
+      "description": "Kategori pertanyaan"
+    },
+    "source_documents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dokumen sumber jawaban"
+ 
