@@ -5,7 +5,7 @@ import { Home, MessageSquare, Camera, FileText, BookOpen } from 'lucide-react';
 
 export default function BottomNav() {
   const location = useLocation();
-  
+
   const navItems = [
     { icon: Home, label: 'Beranda', page: 'Home' },
     { icon: MessageSquare, label: 'Chatbot', page: 'Chatbot' },
@@ -26,9 +26,17 @@ export default function BottomNav() {
           <Link
             key={page}
             to={createPageUrl(page)}
-            className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-300 ${
-              isActive(page)
+            className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-300 ${isActive(page)
                 ? 'text-cyan-600 bg-cyan-50'
                 : 'text-gray-400 hover:text-gray-600'
-            }`}
- 
+              }`}
+          >
+            <Icon className={`w-6 h-6 mb-1 ${isActive(page) ? 'text-cyan-600' : 'text-gray-400 group-hover:text-gray-600'
+              }`} />
+            <span className="text-[10px] font-medium">{label}</span>
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+}
